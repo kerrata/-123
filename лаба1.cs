@@ -673,7 +673,14 @@ namespace ConsoleApp1
                         {
                             if (int.TryParse(Console.ReadLine(), out b))
                             {
-                                break;
+                                if (b > 0)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Ответ не соответствует входным данным. Введите положительное число.");
+                                }
                             }
                             else
                             {
