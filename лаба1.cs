@@ -316,7 +316,6 @@ namespace ConsoleApp1
             {
                 t[k++] = arr[i];
             }
-            Array.Copy(arr, t, pos);
             //вставляем в новый массив данный элемент в нужную позиции
             t[pos] = x;
             k++;
