@@ -1,18 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using ЛАба4;
+using Лаба4;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-
         // 1. Проверка на наличие одинаковых элементов в списке
         Console.WriteLine("Задание 1.");
         List<string> num = new List<string> { "543", "2", "3", "-13", "5", "1", "мама" };
-        
+
         Console.Write("Список: ");
         Console.WriteLine(string.Join(", ", num));
         if (C1.Check(num))
@@ -55,7 +52,7 @@ public class Program
 
         }
 
-        LinkedList<int> L1 = new LinkedList<int>(new[] { 56, 32 ,87, -1, 0, 32, -32, 0 });
+        LinkedList<int> L1 = new LinkedList<int>(new[] { 56, 32, 87, -1, 0, 32, -32, 0 });
         Console.Write("Связный список: ");
         Console.WriteLine(string.Join(", ", L1));
         Console.Write("Введите элемент для удаления: ");
@@ -63,7 +60,15 @@ public class Program
         string input = Console.ReadLine();
         if (int.TryParse(input, out int elementToRemove1))
         {
-            // Успешное преобразование, можно использовать elementToRemove
+            if (C1.RemoveFirst(L1, elementToRemove1))
+            {
+                Console.WriteLine("Список после удаления первого вхождения элемента: " + string.Join(", ", L1));
+            }
+            else
+            {
+                Console.WriteLine("В этом списке нет первого вхождения данного элемента.");
+
+            }
         }
         else
         {
@@ -71,15 +76,7 @@ public class Program
             Console.WriteLine("Введите корректное целое число.");
         }
 
-        if (C1.RemoveFirst(L1, elementToRemove1))
-        {
-            Console.WriteLine("Список после удаления первого вхождения элемента: " + string.Join(", ", L1));
-        }
-        else
-        {
-            Console.WriteLine("В этом списке нет первого вхождения данного элемента.");
-
-        }
+        
 
         // 3. Определение музыкальных произведений
         Console.WriteLine("\nЗадание 3.");
@@ -88,7 +85,7 @@ public class Program
         // Предпочтения меломанов
         var musicLovers = new List<HashSet<string>>
         {
-            new HashSet<string> { "Крутая песня", "Громкая песня" }, // Меломан 1
+            new HashSet<string> { "Громкая песня", "Крутая песня" }, // Меломан 1
             new HashSet<string> { "Крутая песня" }, // Меломан 2
             new HashSet<string> { "Глупая песня", "Крутая песня" } // Меломан 3
         };
@@ -99,7 +96,7 @@ public class Program
         // 4. Печать гласных букв из файла
         Console.WriteLine("\nЗадание 4.");
         C1.PrintUniqueVowels("text.txt");
-    }
-    
 
+        Console.ReadKey();
+    }
 }
