@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using ЛАба4;
+using Лаба4;
 
-namespace ЛАба4
+namespace Лаба4
 {
     public class C1
     {
+        // 1. Проверка на наличие одинаковых элементов в списке
         public static bool Check<T>(List<T> list)
         {
             for (int i = 0; i < list.Count; i++)
@@ -22,6 +22,8 @@ namespace ЛАба4
             }
             return false; // Дубликатов нет
         }
+
+        // 2. Удаление первого вхождения элемента из LinkedList
         public static bool RemoveFirst<T>(LinkedList<T> list, T element)
         {
             // Поиск узла с указанным элементом
@@ -42,6 +44,7 @@ namespace ЛАба4
             return false;
         }
 
+        // 3. Определение музыкальных произведений
         public static void AnalyzeMusic(HashSet<string> songs, List<HashSet<string>> musicLovers)
         {
             var allLike = new HashSet<string>(songs);
@@ -61,6 +64,7 @@ namespace ЛАба4
             Console.WriteLine("Не нравятся никому: " + string.Join(", ", noneLike));
         }
 
+        // 4. Печать гласных букв из файла
         public static void PrintUniqueVowels(string filePath)
         {
             if (!File.Exists(filePath))
@@ -91,13 +95,13 @@ namespace ЛАба4
             // Приводим текст к нижнему регистру и разбиваем на слова
             string[] words = text.ToLower().Split(new char[] { ' ', ',', '.', ';', ':', '-', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
 
-            // Словарь для хранения уникальных гласных
-            Dictionary<char, HashSet<string>> vowelInWords = new Dictionary<char, HashSet<string>>();
+            // Список содержащий гласные буквы слов
+            List<char> vowelInWords = new List<char>();
 
             // Проходим по каждому слову
             foreach (var word in words)
             {
-                // Создаем множество для хранения уникальных гласных в текущем слове
+                // Создаем HashSet для хранения уникальных элемен
                 HashSet<char> vowelsInCurrentWord = new HashSet<char>();
 
                 // Проходим по буквам в слове
@@ -110,26 +114,28 @@ namespace ЛАба4
                     }
                 }
 
-                // Добавляем найденные гласные в общий словарь
-                foreach (var vowel in vowelsInCurrentWord)
-                {
-                    if (!vowelInWords.ContainsKey(vowel))
-                    {
-                        vowelInWords[vowel] = new HashSet<string>();
-                    }
-                    vowelInWords[vowel].Add(word); // Добавляем слово, где встречается гласная
-                }
+                // Добавляем найденные гласные в общий список
+                vowelInWords.AddRange(vowelsInCurrentWord);
             }
 
             // Создаем HashSet для хранения уникальных гласных
             HashSet<char> uniqueVowels = new HashSet<char>();
 
-            // Добавляем в уникальные гласные только те, которые встречаются ровно в одном слове
-            foreach (var pair in vowelInWords)
+            int k;
+
+            foreach (var i in vowelInWords)
             {
-                if (pair.Value.Count == 1) // Гласная встречается только в одном слове
+                k = 0;
+                foreach (var j in vowelInWords)
                 {
-                    uniqueVowels.Add(pair.Key);
+                    if (i == j)
+                    {
+                        k++;
+                    }
+                }
+                if (k == 1)
+                {
+                    uniqueVowels.Add(i);
                 }
             }
 
@@ -138,13 +144,21 @@ namespace ЛАба4
 
         public static void PrintVowels(HashSet<char> uniqueVowels)
         {
-            // Сортируем уникальные гласные
-            List<char> sortedUniqueVowels = new List<char>(uniqueVowels);
-            sortedUniqueVowels.Sort();
+            // Проверяем, есть ли уникальные гласные
+            if (uniqueVowels.Count == 0)
+            {
+                Console.WriteLine("В вашем тексте нет уникальных гласных букв.");
+            }
+            else
+            {
+                // Сортируем уникальные гласные
+                List<char> sortedUniqueVowels = new List<char>(uniqueVowels);
+                sortedUniqueVowels.Sort();
 
-            // Печатаем результат
-            Console.WriteLine("Уникальные гласные буквы в алфавитном порядке:");
-            Console.WriteLine(string.Join(", ", sortedUniqueVowels));
+                // Печатаем результат
+                Console.WriteLine("Уникальные гласные буквы в алфавитном порядке:");
+                Console.WriteLine(string.Join(", ", sortedUniqueVowels));
+            }
         }
     }
 }
